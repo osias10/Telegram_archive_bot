@@ -1,34 +1,54 @@
 const puppeteer = require('puppeteer');
-async function getImg(link) {
+const moment = require('moment');
+
+async function makeFileName(link){
+    if (link.indexOf('://')){
+
+           
+
+        return ((link.substring(link.indexOf('://')+3,(link.length))).replace(/\//g,'_'));
+    }
+    else (link.replace(/\//g,'_'));
+    
+}
+
+
+async function getImg(link,name) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setViewport({
-        width: 960,
-        height: 760,
+        width: 1366,
+        height: 768,
         deviceScaleFactor: 1,
     });
     await page.goto(link);           
     //await page.setContent('https://www.naver.com');
-    await page.screenshot({path: `./files/${link}.png`});
+    const imgFileName = await makeFileName(link);
+    await page.screenshot({path: `./../files/${imgFileName}-${name}.png`,fullPage: true});
     await browser.close();
-    return  0;
+    return  `${imgFileName}-${name}.png`;
 }
 
-async function getPdf(link){
-    
+async function getPdf(link,name){
+    const pdfFileName = await makeFileName(link);
     (async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         await page.goto(link, {
           waitUntil: 'networkidle2',
         });
-        await page.pdf({ path: `./${link}.pdf`, format: 'a4' });
+        
+        await page.pdf({ path: `./../files/${pdfFileName}-${name}.pdf`, format: 'a4' });
       
         await browser.close();
+        
       })();
+      return `${pdfFileName}-${name}.pdf`;
 }
 
-exports = {
+
+
+module.exports = {
     getImg,
     getPdf
 }
