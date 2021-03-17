@@ -4,10 +4,10 @@ const moment = require('moment');
 
 async function makeArchive(link,nickname){
 
-    const nowTime=moment().format('YYYY-MM-DD_HH-mm-ss')
+    const nowTime=moment().format('YYYY-MM-DD_HH-mm-ss');
 
     const pngName = await webConvert.getImg(link,nickname,nowTime);
-    const pdfName = await webConvert.getPdf(link,nickname,nowTime);
+    const pdfName = await webConvert.getPdf(link,nickname,nowTime).catch(e=> console.log(e));
 
     
     

@@ -13,7 +13,7 @@ bot.on('message', async (msg) =>{
     if (msg.text.startsWith('http')) {
         bot.sendMessage(chatId,`${msg.text} 페이지  생성중`);
 
-        const makeFiles = await func.makeArchive(msg.text,chatId);
+        const makeFiles = await func.makeArchive(msg.text,chatId).catch(e=> console.log(e));
         console.log(makeFiles);
         await bot.sendPhoto(msg.chat.id,`./../files/${makeFiles[0]}`);
         await bot.sendDocument(msg.chat.id,`./../files/${makeFiles[1]}`);
