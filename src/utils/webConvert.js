@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const moment = require('moment');
+
 
 async function makeFileName(link){
     if (link.indexOf('://')){
@@ -13,7 +13,7 @@ async function makeFileName(link){
 }
 
 
-async function getImg(link,name) {
+async function getImg(link,name,nowTime) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setViewport({
@@ -24,12 +24,12 @@ async function getImg(link,name) {
     await page.goto(link);           
     //await page.setContent('https://www.naver.com');
     const imgFileName = await makeFileName(link);
-    await page.screenshot({path: `./../files/${imgFileName}-${name}.png`,fullPage: true});
+    await page.screenshot({path: `./../files/${imgFileName}-${name}${nowTime}.png`,fullPage: true});
     await browser.close();
-    return  `${imgFileName}-${name}.png`;
+    return  `${imgFileName}-${name}${nowTime}.png`;
 }
 
-async function getPdf(link,name){
+async function getPdf(link,name,nowTime){
     const pdfFileName = await makeFileName(link);
     (async () => {
         const browser = await puppeteer.launch();
@@ -38,12 +38,12 @@ async function getPdf(link,name){
           waitUntil: 'networkidle2',
         });
         
-        await page.pdf({ path: `./../files/${pdfFileName}-${name}.pdf`, format: 'a4' });
+        await page.pdf({ path: `./../files/${pdfFileName}-${name}${nowTime}.pdf`, format: 'a4' });
       
         await browser.close();
         
       })();
-      return `${pdfFileName}-${name}.pdf`;
+      return `${pdfFileName}-${name}${nowTime}.pdf`;
 }
 
 

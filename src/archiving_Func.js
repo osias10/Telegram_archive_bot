@@ -1,9 +1,13 @@
 const webConvert = require('./utils/webConvert');
 const fs=require('fs');
+const moment = require('moment');
 
 async function makeArchive(link,nickname){
-    const pngName = await webConvert.getImg(link,nickname);
-    const pdfName = await webConvert.getPdf(link,nickname);
+
+    const nowTime=moment().format('YYYY-MM-DD_HH-mm-ss')
+
+    const pngName = await webConvert.getImg(link,nickname,nowTime);
+    const pdfName = await webConvert.getPdf(link,nickname,nowTime);
 
     
     
