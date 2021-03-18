@@ -15,7 +15,7 @@ bot.on('message', async (msg) =>{
 
         const makeFiles = await func.makeArchive(msg.text,chatId).catch(e=> console.log(e));
         console.log(makeFiles);
-        await bot.sendPhoto(msg.chat.id,`./../files/${makeFiles[0]}`);
+        await bot.sendDocument(msg.chat.id,`./../files/${makeFiles[0]}`);
         await bot.sendDocument(msg.chat.id,`./../files/${makeFiles[1]}`);
         if (makeFiles[0]!=undefined) {func.deleteFile(makeFiles[0])}
         if (makeFiles[1]!=undefined) {func.deleteFile(makeFiles[1])}
