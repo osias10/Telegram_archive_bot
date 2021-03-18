@@ -6,9 +6,9 @@ async function makeFileName(link){
 
            
 
-        return ((link.substring(link.indexOf('://')+3,(link.length))).replace(/(\/|:)/g,'_'));
+        return ((link.substring(link.indexOf('://')+3,(20))).replace(/(\/|:)/g,'_'));
     }
-    else (link.replace(/(\/|:)/g,'_'));
+    else (link.substring(0,10).replace(/(\/|:)/g,'_'));
     
 }
 
