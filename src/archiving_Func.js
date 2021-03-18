@@ -5,13 +5,15 @@ const moment = require('moment');
 async function makeArchive(link,nickname){
 
     const nowTime=moment().format('YYYY-MM-DD_HH-mm-ss');
-
+/*
     const pngName = await webConvert.getImg(link,nickname,nowTime);
     const pdfName = await webConvert.getPdf(link,nickname,nowTime).catch(e=> console.log(e));
-
+*/
+    const archiveName = await webConvert.getArchive(link,nickname,nowTime);
     
     
-    return [pngName,pdfName];
+    //return [pngName,pdfName];
+    return [archiveName[0],archiveName[1]];
 
 }
 
